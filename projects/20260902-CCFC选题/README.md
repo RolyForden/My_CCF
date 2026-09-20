@@ -23,6 +23,7 @@
 ## 当前材料
 
 - 当前方案：[Markdown](idea/CAGE_final-idea-report.md) / [PDF](idea/CAGE_final-idea-report.pdf)
+- 分阶段执行手册：[CAGE_EXECUTION_PLAYBOOK.md](experiments/CAGE_EXECUTION_PLAYBOOK.md)
 - 关键证据：[EVIDENCE.md](EVIDENCE.md)
 - 重大转向：[DECISIONS.md](DECISIONS.md)
 - 旧 proposal、完整文献矩阵和旧流程文件均在 `archive/` 或根目录 `legacy_workflow/`，默认不读。
