@@ -13,13 +13,13 @@ $requiredFiles = @(
     "RESEARCH_CHARTER.md",
     "STATE.yaml",
     "DECISIONS.md",
-    "01_landscape/EVIDENCE_LEDGER.md",
-    "01_landscape/LITERATURE_MATRIX.csv",
-    "02_idea/IDEA_CARD.md",
-    "03_baseline/BASELINE_REPRO.md",
-    "04_experiments/EXPERIMENT_PLAN.md",
-    "04_experiments/EXPERIMENT_REGISTRY.csv",
-    "05_paper/CLAIM_MATRIX.md"
+    "landscape/EVIDENCE_LEDGER.md",
+    "landscape/LITERATURE_MATRIX.csv",
+    "idea/IDEA_CARD.md",
+    "experiments/BASELINE_REPRO.md",
+    "experiments/EXPERIMENT_PLAN.md",
+    "experiments/EXPERIMENT_REGISTRY.csv",
+    "paper/CLAIM_MATRIX.md"
 )
 
 $errors = [System.Collections.Generic.List[string]]::new()
@@ -41,13 +41,13 @@ if (Test-Path -LiteralPath $statePath) {
 }
 
 $literatureHeader = "paper_id,title,year,venue,task,modality,dataset,core_mechanism,code_url,primary_source,evidence_level,fulltext_read,closest_claim,known_limit,status"
-$literaturePath = Join-Path $resolved "01_landscape/LITERATURE_MATRIX.csv"
+$literaturePath = Join-Path $resolved "landscape/LITERATURE_MATRIX.csv"
 if ((Test-Path -LiteralPath $literaturePath) -and ((Get-Content -LiteralPath $literaturePath -TotalCount 1) -ne $literatureHeader)) {
     $errors.Add("LITERATURE_MATRIX.csv header does not match the workflow schema.")
 }
 
 $experimentHeader = "run_id,stage,hypothesis,method,baseline,dataset,split,seed,config_path,command,git_commit,gpu,start_time,end_time,status,log_path,result_path,primary_metric,metric_value,notes"
-$experimentPath = Join-Path $resolved "04_experiments/EXPERIMENT_REGISTRY.csv"
+$experimentPath = Join-Path $resolved "experiments/EXPERIMENT_REGISTRY.csv"
 if ((Test-Path -LiteralPath $experimentPath) -and ((Get-Content -LiteralPath $experimentPath -TotalCount 1) -ne $experimentHeader)) {
     $errors.Add("EXPERIMENT_REGISTRY.csv header does not match the workflow schema.")
 }
