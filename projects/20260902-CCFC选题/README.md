@@ -10,7 +10,7 @@
 
 - **已知**：现有工作已经覆盖多尺度融合、2D-3D consistency、中间层 connector、几何先验和编码器语义增强；“局部放大 + 全局语境 + 蒸馏”不足以构成强问题。
 - **邻近风险**：counterfactual affordance diagnosis、VLM causal tracing、activation patching 和 modality routing 已有直接先例。可能剩余的空间是 dense 3D point-level spatial control 的任务特有机制，而不是 patching 工具本身。
-- **未知**：LASO 是否有足量且语义有效的同 shape 多 affordance pair；预训练模型是否真实存在 query-insensitive switching failure；内部 query control 是否有稳定、可干预的衰减位置。
+- **未知**：LASO 是否有足量且语义有效的同 shape 多 affordance pair；模型是在使用自然语言还是只识别闭集 affordance label；预训练模型是否真实存在 query-insensitive switching failure；内部 query control 是否有稳定、可干预的衰减位置。
 - **尚无结果**：没有运行数据审计、baseline 推理、表示定位或因果干预。
 - **放弃条件**：数据不能形成可靠 pair；强 baseline 能正确切换；或表示变化与行为之间只能得到相关性、无法形成任务特有的机制结论。
 
@@ -29,4 +29,4 @@
 
 ## 下一步
 
-先用当前方案与导师讨论。确认研究问题值得继续后，只做 LASO pair 数据可答性审计；在这一步通过前不下载额外模型、不搭训练环境、不设计正式方法。
+先用交叉验证修订后的方案与导师讨论。确认研究问题值得继续后，只做 LASO pair 数据可答性审计；在这一步通过前不下载额外模型、不搭训练环境、不设计 CAGE-R 或其他正式方法。

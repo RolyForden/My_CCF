@@ -76,7 +76,7 @@ class Cover(Flowable):
         c.line(23 * mm, PAGE_H - 93 * mm, 166 * mm, PAGE_H - 93 * mm)
         c.setFont("CJK", 11)
         c.setFillColor(MUTED)
-        c.drawString(23 * mm, PAGE_H - 103 * mm, "研究方案报告  |  导师讨论初稿  |  v0.1")
+        c.drawString(23 * mm, PAGE_H - 103 * mm, "研究方案报告  |  交叉验证修订稿  |  v0.2")
 
         labels = ["q", "E_q", "Fusion", "Z_point", "Decoder", "Mask"]
         fills = [PALE_GOLD, PALE_BLUE, PALE_TEAL, PALE_BLUE, PALE_GOLD, colors.HexColor("#F7E9E6")]
@@ -107,14 +107,14 @@ class Cover(Flowable):
         lines = [
             "CAGE 是 measurement apparatus，不是 method。",
             "先确认 behaviour，再定位 representation，最后做 causal intervention。",
-            "D2 通过前，正式方法保持空白。",
+            "因果定位通过前，正式方法保持空白。",
         ]
         for idx, line in enumerate(lines):
             c.drawString(30 * mm, (87 - idx * 9) * mm, line)
 
         c.setFillColor(MUTED)
         c.setFont("CJK", 9)
-        c.drawString(23 * mm, 32 * mm, "状态：IDEA / PENDING  ·  无实验结果  ·  版本日期：2026-09-20")
+        c.drawString(23 * mm, 32 * mm, "状态：候选 RQ  ·  无实验结果  ·  版本日期：2026-09-20")
         c.restoreState()
 
 
@@ -127,10 +127,10 @@ class PipelineDiagram(Flowable):
     def draw(self) -> None:
         c = self.canv
         stages = [
-            ("D0", "Behaviour", CORAL),
-            ("D1", "Localization", NAVY),
-            ("D2", "Intervention", TEAL),
-            ("D3", "Method", GOLD),
+            ("A", "Behaviour", CORAL),
+            ("B", "Localization", NAVY),
+            ("C", "Intervention", TEAL),
+            ("D", "Method", GOLD),
         ]
         gap = 5 * mm
         w = (self.width - 3 * gap) / 4
@@ -248,7 +248,7 @@ def parse_table(lines: list[str], styles: dict[str, ParagraphStyle], usable_widt
 
 def markdown_to_story(md_path: Path, styles: dict[str, ParagraphStyle], usable_width: float) -> list[Flowable]:
     lines = md_path.read_text(encoding="utf-8").splitlines()
-    start = next(i for i, line in enumerate(lines) if line.startswith("## 一句话概括"))
+    start = next((i for i, line in enumerate(lines) if line.startswith("## 1.")), 0)
     lines = lines[start:]
     story: list[Flowable] = []
     paragraph: list[str] = []
@@ -279,7 +279,7 @@ def markdown_to_story(md_path: Path, styles: dict[str, ParagraphStyle], usable_w
         if stripped.startswith("## "):
             flush_paragraph()
             story.append(Paragraph(inline_markup(stripped[3:]), styles["h1"]))
-            if stripped.startswith("## 5.") and not pipeline_inserted:
+            if stripped.startswith("## 6.") and not pipeline_inserted:
                 story.append(PipelineDiagram(usable_width))
                 pipeline_inserted = True
             i += 1
@@ -340,7 +340,7 @@ def body_page(canvas, doc) -> None:
     canvas.line(18 * mm, PAGE_H - 16 * mm, PAGE_W - 18 * mm, PAGE_H - 16 * mm)
     canvas.setFont("CJK-Bold", 7.8)
     canvas.setFillColor(NAVY)
-    canvas.drawString(18 * mm, PAGE_H - 12 * mm, "CAGE Mechanism Research Report v0.1")
+    canvas.drawString(18 * mm, PAGE_H - 12 * mm, "CAGE Mechanism Research Report v0.2")
     canvas.setFont("CJK", 7.5)
     canvas.setFillColor(MUTED)
     canvas.drawRightString(PAGE_W - 18 * mm, 11 * mm, f"第 {doc.page - 1} 页")
