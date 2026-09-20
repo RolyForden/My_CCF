@@ -68,15 +68,15 @@ class Cover(Flowable):
         c.setFillColor(NAVY)
         c.drawString(23 * mm, PAGE_H - 58 * mm, "CAGE")
         c.setFont("CJK-Bold", 20)
-        c.drawString(23 * mm, PAGE_H - 72 * mm, "Query Control 在三维功能区域定位中的")
-        c.drawString(23 * mm, PAGE_H - 84 * mm, "传播、衰减与因果定位")
+        c.drawString(23 * mm, PAGE_H - 72 * mm, "三维功能区域定位中的")
+        c.drawString(23 * mm, PAGE_H - 84 * mm, "Query-to-Point Control 因果测量")
 
         c.setStrokeColor(TEAL)
         c.setLineWidth(2)
         c.line(23 * mm, PAGE_H - 93 * mm, 166 * mm, PAGE_H - 93 * mm)
         c.setFont("CJK", 11)
         c.setFillColor(MUTED)
-        c.drawString(23 * mm, PAGE_H - 103 * mm, "研究方案报告  |  交叉验证修订稿  |  v0.3")
+        c.drawString(23 * mm, PAGE_H - 103 * mm, "研究方案报告  |  交叉验证修订稿  |  v0.4")
 
         labels = ["q", "E_q", "Fusion", "Z_point", "Decoder", "Mask"]
         fills = [PALE_GOLD, PALE_BLUE, PALE_TEAL, PALE_BLUE, PALE_GOLD, colors.HexColor("#F7E9E6")]
@@ -107,14 +107,14 @@ class Cover(Flowable):
         lines = [
             "CAGE 是 measurement apparatus，不是 method。",
             "先确认 behaviour，再定位 representation，最后做 causal intervention。",
-            "因果定位通过前，正式方法保持空白。",
+            "机制成立后，再决定是否需要方法修复。",
         ]
         for idx, line in enumerate(lines):
             c.drawString(30 * mm, (87 - idx * 9) * mm, line)
 
         c.setFillColor(MUTED)
         c.setFont("CJK", 9)
-        c.drawString(23 * mm, 32 * mm, "状态：候选 RQ  ·  无实验结果  ·  版本日期：2026-09-20")
+        c.drawString(23 * mm, 32 * mm, "状态：候选 RQ  ·  无实验结果  ·  版本日期：2026-09-21")
         c.restoreState()
 
 
@@ -130,7 +130,7 @@ class PipelineDiagram(Flowable):
             ("A", "Behaviour", CORAL),
             ("B", "Localization", NAVY),
             ("C", "Intervention", TEAL),
-            ("D", "Method", GOLD),
+            ("D", "Optional Repair", GOLD),
         ]
         gap = 5 * mm
         w = (self.width - 3 * gap) / 4
@@ -340,7 +340,7 @@ def body_page(canvas, doc) -> None:
     canvas.line(18 * mm, PAGE_H - 16 * mm, PAGE_W - 18 * mm, PAGE_H - 16 * mm)
     canvas.setFont("CJK-Bold", 7.8)
     canvas.setFillColor(NAVY)
-    canvas.drawString(18 * mm, PAGE_H - 12 * mm, "CAGE Mechanism Research Report v0.3")
+    canvas.drawString(18 * mm, PAGE_H - 12 * mm, "CAGE Mechanism Research Report v0.4")
     canvas.setFont("CJK", 7.5)
     canvas.setFillColor(MUTED)
     canvas.drawRightString(PAGE_W - 18 * mm, 11 * mm, f"第 {doc.page - 1} 页")
@@ -355,7 +355,7 @@ def build_pdf(md_path: Path, out_path: Path) -> None:
         str(out_path), pagesize=A4,
         leftMargin=18 * mm, rightMargin=18 * mm,
         topMargin=21 * mm, bottomMargin=18 * mm,
-        title="CAGE: Query Control 在三维功能区域定位中的传播、衰减与因果定位",
+        title="CAGE: 三维功能区域定位中 Query-to-Point Control 的因果测量",
         author="科研总控台项目",
         subject="Mechanism-discovery research plan",
     )
