@@ -3,30 +3,45 @@ created: "2026-09-02"
 updated: "2026-09-20"
 stage: "IDEA"
 gate_status: "PENDING"
-target_venue: "IJCNN 2027（主）/ IROS 2027 / PRCV 2027（备）"
+target_venue: "IJCNN 2027（候选主投）/ IROS 2027 / PRCV 2027（备）；截止与政策待官方核验"
 deadline: "2027-03-01（硬节点）"
-research_question: "TBD —— 待按导师意见修订。当前围绕 FocalInspect-NBV：语境引导局部教师 + 优势加权局部修正蒸馏 + 2D→3D 迁移，无人机作次要下游验证；导师指出 gap 锋利度不足，须重审根问题（全局语义理解与局部空间精度的结构性矛盾，当前为 D 级假设，待实证）。"
+research_question: "候选 RQ（D 级，机制发现）：有效 query 改变而几何不变时，query-dependent representation change 沿 q -> E_q -> Fusion -> Z_point -> Decoder -> Mask 在哪里失去对 point-level spatial decision 的控制，该位置的信息变化是否对 mask switching 具有因果作用？"
 evidence_snapshot:
-  A: 0
-  B: 0
-  C: 0
-  D: 1
-last_decision: "D-022"
+  A: 15
+  B: 7
+  C: 1
+  D: 2
+last_decision: "D-025"
 artifacts:
   - "GATE.md"
   - "intake/VENUE_CANDIDATES.md"
   - "idea/FocalInspect-NBV_Research_Report.pdf"
+  - "idea/FocalInspect_Root_Problem_Diagnostic.md"
+  - "idea/FocalInspect_Proposal_v2.md"
+  - "idea/FocalInspect_Proposal_v2_SCREENING.md"
+  - "idea/CAGE_Mechanism_Discovery_Proposal_v3.md"
+  - "idea/CAGE_Mechanism_Research_Report_v0.md"
+  - "idea/CAGE_Mechanism_Research_Report_v0.pdf"
   - "landscape/LANDSCAPE.md"
   - "landscape/LITERATURE_MATRIX.csv"
   - "landscape/EVIDENCE_LEDGER.md"
 blockers:
-  - item: "按导师意见修订 FocalInspect-NBV 的 RQ（结构性矛盾 D 级假设，须先实证根问题）"
-    owner: "唐卓 + 同学"
+  - item: "D0 尚未确认 LASO 是否有足量、语义有效且预期区域可区分的同 shape 多 affordance pair"
+    owner: "数据与基线 subagent"
     status: "OPEN"
-  - item: "重建 landscape 证据账本与文献矩阵（旧 VO 证据已归档，需重新核验 GEAL/LASO/GLANCE/CMAT）"
+  - item: "D0 尚未证明 query-insensitive mask switching failure 存在并排除歧义、overlap、尺度和 paraphrase noise"
+    owner: "工程实验 subagent"
+    status: "OPEN"
+  - item: "D1/D2 已形成 PointRefer/GEAL/CMAT 的候选 hook map 与双向干预协议，但尚未实现 instrumentation 或运行验证"
+    owner: "工程实验 subagent"
+    status: "OPEN"
+  - item: "GroundBench/ThinkAfford/SegWorld 及 2026 邻域尚需全文主张级查重"
     owner: "文献情报 subagent"
     status: "OPEN"
   - item: "书面化共同一作的具体分工与贡献"
     owner: "唐卓 + 同学"
     status: "OPEN"
-next_action: "按导师意见修订 FocalInspect-NBV 的 RQ 与 gap；待 RQ 定稿后委派文献情报重建 LANDSCAPE/EVIDENCE_LEDGER/LITERATURE_MATRIX，再走选题红队。"
+  - item: "候选会议官方截止、页数、主题与 AI 使用政策未最终核验"
+    owner: "唐卓"
+    status: "OPEN"
+next_action: "等待用户与导师审阅 CAGE Mechanism Research Report v0；checkpoint 后先完成 P0 最近邻全文主张表与 D0 数据可答性审计，再决定是否运行行为诊断，不提前设计 D3 方法。"

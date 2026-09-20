@@ -43,3 +43,36 @@
 - 被否决选项：继续 FocalNadir-VO；两个方向并行推进。
 - owner：唐卓
 - 复查触发条件：导师修订意见定稿后，重写 RQ 与 IDEA_CARD，再走选题红队。
+
+## D-023
+
+- 日期：2026-09-20
+- 阶段：IDEA（导师反馈吸收）
+- 决策：旧 FocalInspect-NBV proposal 不进入 baseline。导师指出其“局部放大 + 全局语境 + 选择性蒸馏”主要是在证明组合不 trivial，而非解决已实证的结构性问题；无人机下游验证不能补足方法新颖性。
+- 依据：导师完整评价（C 级决策材料）；LASO/GEAL/GLANCE/CMAT 全文与官方代码核验表明，多尺度、global-local fusion、2D-3D transfer 和细粒度几何先验已有直接覆盖。
+- 被否决选项：继续给旧 proposal 加模块；先接 FlightBench/Aerial Gym 再寻找 motivation。
+- owner：唐卓
+- 复查触发条件：出现可量化、可证伪且不能被简单 crop/分辨率解释的根 failure。
+
+## D-024
+
+- 日期：2026-09-20
+- 阶段：IDEA（候选 RQ）
+- 决策：把“同一几何输入下的 instruction-conditioned counterfactual faithfulness”保留到最小诊断，形成条件式 Proposal v2；旧 global semantic-local precision 路线降为尺度解释对照，不作为主张。Gate 不推进。
+- 依据：LASO 官方论文和 loader 显示问题由 object-affordance 组合生成，训练随机问题、测试固定 Question0；相邻 grounding 研究表明语言扰动与反事实重问可揭示 shortcut，但该现象尚未在 LASO/GEAL 上实证。
+- 候选 RQ：模型能否对同义问题保持 mask 不变，并在同一 shape 的不同有效 affordance 指令下正确切换 mask？
+- 被否决选项：把协议可疑直接写成模型走 shortcut；把 GroundBench/BEACON3D 的结论直接迁移为本任务事实。
+- owner：唐卓 + 同学
+- 复查触发条件：D0 数据审计和 D1 预训练模型诊断完成后，按 SURVIVE/WEAK/KILL 规则裁决。
+
+## D-025
+
+- 日期：2026-09-20
+- 阶段：IDEA（研究对象重置）
+- 决策：终止把 CAGE 定位为 `faithfulness evaluation + metrics + paired loss` 方法主线。CAGE 降级为 measurement apparatus，只用于行为 probe、controlled pairs、sensitivity measurement 和替代解释排除。新的候选研究对象是 query information 沿 `q -> E_q -> Fusion -> Z_point -> Decoder -> Mask` 的传播机制及其对 point-level mask switching 的因果作用；正式方法在 D2 通过前保持空白。
+- 依据：诊断、指标和通用 loss 是研究工具，不是机制贡献。仅观察层间 representation similarity 也不能定位根因；必须经过 `Behavioural existence -> Representation localization -> Causal intervention -> Mechanism-derived method`，并用 restoration/destruction 的行为后果区分 candidate locus 与决定性机制。
+- 优先候选假设：query collapse、fusion attenuation、point-level conditioning failure、decoder dominance；其中 global-to-point query routing / query-part binding failure 仅为优先验证假设，不是结论。
+- paired loss 定位：non-mechanistic intervention control。若其完整恢复内部链路与 switching，优先解释为 supervision deficiency；若只改善输出指标而不恢复内部机制，则不能作为正式解法。
+- 被否决选项：继续润色 Proposal v2；把 CAGE-Pair/CSM 当主贡献；在机制定位前预设 routing、binding、conditional modulation 或 point-query interaction 方法。
+- owner：唐卓 + 同学
+- 复查触发条件：D0 证明行为 failure 且排除数据歧义后，才进入 D1；D2 双向定点干预成立后，才允许设计 D3 方法。
