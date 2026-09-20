@@ -58,10 +58,13 @@ Copy-Template (Join-Path $root "workflow/STATE_TEMPLATE.yaml") (Join-Path $targe
 Copy-Template (Join-Path $templates "decision_log.md") (Join-Path $target "DECISIONS.md")
 Copy-Template (Join-Path $templates "evidence_ledger.md") (Join-Path $target "landscape/EVIDENCE_LEDGER.md")
 Copy-Template (Join-Path $templates "literature_matrix.csv") (Join-Path $target "landscape/LITERATURE_MATRIX.csv")
+Copy-Template (Join-Path $templates "landscape.md") (Join-Path $target "landscape/LANDSCAPE.md")
+Copy-Template (Join-Path $templates "data_cards.md") (Join-Path $target "intake/DATA_CARDS.md")
 Copy-Template (Join-Path $templates "idea_card.md") (Join-Path $target "idea/IDEA_CARD.md")
 Copy-Template (Join-Path $templates "baseline_repro.md") (Join-Path $target "experiments/BASELINE_REPRO.md")
 Copy-Template (Join-Path $templates "experiment_plan.md") (Join-Path $target "experiments/EXPERIMENT_PLAN.md")
 Copy-Template (Join-Path $templates "experiment_registry.csv") (Join-Path $target "experiments/EXPERIMENT_REGISTRY.csv")
+Copy-Template (Join-Path $templates "results_audit.md") (Join-Path $target "experiments/RESULTS_AUDIT.md")
 Copy-Template (Join-Path $templates "claim_matrix.md") (Join-Path $target "paper/CLAIM_MATRIX.md")
 Copy-Template (Join-Path $templates "meeting_notes.md") (Join-Path $target "intake/MEETING_NOTES.md")
 
