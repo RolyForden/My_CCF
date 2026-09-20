@@ -65,7 +65,7 @@ projects/20260902-CCFC选题/experiments/
 | GEAL LASO seen 权重 | [laso_seen.pt](https://huggingface.co/datasets/dylanorange/geal/blob/main/laso_seen.pt) | Stage B0 | 554 MB；SHA256 `0163519dcf732cf9c9a4db176f8df79b7c207e0ee14a1324988f714eb4b4191e` |
 | GEAL LASO unseen 权重 | [laso_unseen.pt](https://huggingface.co/datasets/dylanorange/geal/blob/main/laso_unseen.pt) | seen 评测链路正常后 | 554 MB；SHA256 `949d5b686555a14d6d827539b436a7cd11a59f2d4bae5a49f7f19a44010ca7fb` |
 
-Stage A 不下载 GEAL、PointRefer、CMAT、PIAD 或任何训练权重。Stage B 先下载 seen 权重，链路通过后再决定是否下载 unseen 权重。
+默认情况下 Stage A 不下载模型资产。为支持两人并发，辅助队友可在 Stage A 期间按 `GEAL_BASELINE_SUPPORT_TASK.md` 克隆 GEAL、搭建官方环境并下载 LASO seen 权重，但不得运行 CAGE query 实验；Stage B 仍只从 seen 权重开始，链路通过后再决定是否下载 unseen 权重。PointRefer、CMAT、PIAD 继续禁止提前下载。
 
 ## 4. Stage A：LASO 数据可答性
 
@@ -439,4 +439,4 @@ Decision and next permitted action:
 5. 运行全量数据与语言审计；
 6. 输出 `PASS / DOWNGRADE / KILL`，等待 checkpoint。
 
-在该 checkpoint 前，不下载 GEAL、不搭 CUDA 环境、不运行模型。
+在该 checkpoint 前，主研究者不运行模型。辅助队友可以完成 GEAL 环境和官方 evaluation 准备；只有 Stage A 为 `PASS` 后，才允许按冻结 manifest 运行 CAGE query 实验。
