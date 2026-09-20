@@ -63,3 +63,14 @@
 - 被否决选项：留在主仓库内（archive/ 子目录）；只归档坟场与旧实验。
 - owner：唐卓
 - 复查触发条件：需要回溯旧方向细节时到归档工作空间查阅。
+
+## D-022
+
+- 日期：2026-09-20
+- 阶段：IDEA（方向切换）
+- 决策：主攻方向由 **FocalNadir-VO（高空俯视单目视觉里程计）** 切换为 **FocalInspect-NBV（任务驱动无人机巡检：FocalAfford 感知 + 冻结下游观察验证）**。FocalNadir-VO 废弃，其立项书与证据链归档至 `Z:\科研总控台opencode-archive\projects\20260902-CCFC选题\FocalNadir-VO_废弃\`。
+- 依据：实际讨论的 proposal 为 `FocalInspect-NBV_Research_Report.pdf`（2026-09-17），导师已就该 proposal 提出评价意见（gap 锋利度不足，须重审根问题：分辨率不足 vs 全局语义—局部空间精度的结构性矛盾），团队计划于今日按导师意见修订 FocalInspect-NBV。原 D-020 定的 FocalNadir-VO 已与后续实际推进脱节。
+- 待办：按导师意见修订 FocalInspect-NBV 的 RQ（结构性矛盾方向尚未实证，当前为 D 级假设）；重建 landscape 证据账本与文献矩阵（旧 VO 证据已随本决策归档）。
+- 被否决选项：继续 FocalNadir-VO；两个方向并行推进。
+- owner：唐卓
+- 复查触发条件：导师修订意见定稿后，重写 RQ 与 IDEA_CARD，再走选题红队。

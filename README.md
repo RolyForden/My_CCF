@@ -5,11 +5,11 @@
 ## 当前在做什么
 
 - **当前项目**：[20260902-CCFC选题](projects/20260902-CCFC选题/README.md)
-- **主攻方向**：FocalNadir-VO —— 高空俯视无人机单目视觉里程计（训练期平面运动归一化局部细节学习）
-- **当前闸门**：`G1 = WEAK+`，须用表0 止损实验决定是否 SURVIVE
+- **主攻方向**：FocalInspect-NBV —— 任务驱动无人机巡检（FocalAfford 感知 + 冻结下游观察验证）
+- **当前闸门**：RQ 待按导师意见修订（gap 锋利度重审）
 - **目标**：CCF-C 会议，2027-03 前投出
 
-> **归档说明**：已否定方向与旧实验产物（PACE-PC、跨模态地点检索、点云退化恢复、FocalAfford / FocalLiDAR / FocalAerial）已移到独立工作空间 `Z:\科研总控台opencode-archive\`，**不在本仓库**。
+> **归档说明**：已否定方向与旧实验产物（PACE-PC、跨模态地点检索、点云退化恢复、FocalAfford / FocalLiDAR / FocalAerial、FocalNadir-VO）已移到独立工作空间 `Z:\科研总控台opencode-archive\`，**不在本仓库**。
 
 ## 先看什么
 
