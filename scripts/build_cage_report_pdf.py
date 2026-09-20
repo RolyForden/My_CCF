@@ -76,7 +76,7 @@ class Cover(Flowable):
         c.line(23 * mm, PAGE_H - 93 * mm, 166 * mm, PAGE_H - 93 * mm)
         c.setFont("CJK", 11)
         c.setFillColor(MUTED)
-        c.drawString(23 * mm, PAGE_H - 103 * mm, "研究方案报告  |  交叉验证修订稿  |  v0.2")
+        c.drawString(23 * mm, PAGE_H - 103 * mm, "研究方案报告  |  交叉验证修订稿  |  v0.3")
 
         labels = ["q", "E_q", "Fusion", "Z_point", "Decoder", "Mask"]
         fills = [PALE_GOLD, PALE_BLUE, PALE_TEAL, PALE_BLUE, PALE_GOLD, colors.HexColor("#F7E9E6")]
@@ -340,7 +340,7 @@ def body_page(canvas, doc) -> None:
     canvas.line(18 * mm, PAGE_H - 16 * mm, PAGE_W - 18 * mm, PAGE_H - 16 * mm)
     canvas.setFont("CJK-Bold", 7.8)
     canvas.setFillColor(NAVY)
-    canvas.drawString(18 * mm, PAGE_H - 12 * mm, "CAGE Mechanism Research Report v0.2")
+    canvas.drawString(18 * mm, PAGE_H - 12 * mm, "CAGE Mechanism Research Report v0.3")
     canvas.setFont("CJK", 7.5)
     canvas.setFillColor(MUTED)
     canvas.drawRightString(PAGE_W - 18 * mm, 11 * mm, f"第 {doc.page - 1} 页")

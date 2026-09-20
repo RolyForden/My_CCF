@@ -2,7 +2,7 @@
 
 中文题目：CAGE——面向语言引导三维功能部位定位的查询控制传播机制分析
 一句话概括：不把 CAGE 当新方法，而把它当作"测量装置"——先用同一几何下的有效 query pair 证明 point-level mask switching failure，再沿 query → 文本编码 → 跨模态融合 → 点表示 → 解码器这条链路定位 query control 在哪里丢失，最后用双向因果干预判断该位置是否真正控制空间决策；只有因果定位成立，才允许方法从机制中产生。
-版本：导师讨论稿 v0.2，2026-09-20。本文给出候选研究对象和最小验证路线；尚无数据审计、baseline 或本方法实验结果，正式方法保持空白。
+版本：导师讨论稿 v0.3，2026-09-20。本文给出候选研究对象和最小验证路线；尚无数据审计、baseline 或本方法实验结果，正式方法保持空白。
 
 ## 1. 引言
 
@@ -40,6 +40,7 @@ CAGE 只提供定位故障所需的受控材料和测量工具，不承担论文
 
 - **CAGE-Pair**：同一 shape、两个不同有效 affordance、mask 低重叠的配对，用于验证 mask switching。
 - **CAGE-Para**：同一 shape、同一 affordance、不同问题改写，用于验证语义等价不变性。
+- **CAGE-Unsupported**：保持正确 object，输入语法合法但经数据集 taxonomy 与人工语义审计确认该 object 不支持的 affordance，用于检验对象先验驱动的错误激活。
 
 配对由现有标注确定性生成；语义关系（互斥 / 共享区域 / 可并存 / 蕴含层级 / 歧义）由双人盲审冻结，IoU 只做几何过滤、不替代语义判定。统计与置信区间以独立 shape 为单位，不能把同一 shape 产生的多个 pair 当成独立样本。测试 pair 不参与任何超参数选择。
 
@@ -51,13 +52,17 @@ CAGE 只提供定位故障所需的受控材料和测量工具，不承担论文
 
 若 Label 与 Canonical 表现相近、Paraphrase 明显下降，首先说明语言表面泛化不足；若三者都无法驱动正确切换，才支持 point-level conditional routing failure。object-only、query-only 和类别先验预测器用于估计捷径上限；shuffle 与 null 只作为分布外压力测试，不进入主要存在性结论。
 
+CAGE-Unsupported 没有合法目标 mask，不进入双向 switching 或单查询准确性统计，而是单独报告总激活量、常见功能区域的错误激活，以及预测与 object-only prior / 该类别最常见 affordance mask 的相似度。“不支持”不能由数据中缺少某个标注直接推出，必须同时经过 taxonomy 核对与人工语义审计，以免把缺标误当成负例。
+
 ### 2.3 行为诊断
 
 对每个合法 pair 跑 `(P, q_a) → p_a` 和 `(P, q_b) → p_b`。评价拆成三个互不替代的读数：
 
 1. **单查询准确性**：分别报告 `S(p_a,y_a)` 与 `S(p_b,y_b)`，以及标准 aIoU/AUC/SIM/MAE；
 2. **双向选择正确性**：要求 `S(p_a,y_a) > S(p_a,y_b)` 且 `S(p_b,y_b) > S(p_b,y_a)`，同时报告两个 margin，禁止用平均值让一侧补偿另一侧；
-3. **空间变化方向**：比较 `p_b-p_a` 与 `y_b-y_a` 的方向一致性，并单独报告变化幅度和近零变化比例，避免 cosine 在预测几乎不变时产生误导。
+3. **变化幅度与方向**：先报告 GT effect `||Δy||`、prediction effect `||Δp||` 及幅度比 `||Δp|| / (||Δy|| + ε)`；只有 `||Δy||` 与 `||Δp||` 均高于按测量噪声预先确定的下限时，才计算 `Δp=p_b-p_a` 与 `Δy=y_b-y_a` 的方向一致性。
+
+不同 affordance pair 与 paraphrase pair 必须分开解释。前者只有在 `||Δy||` 明确非零的子集上，才能把近零 `||Δp||` 称为 **counterfactual silence**；后者的 `Δy=0`，近零预测变化本来就是期望行为，反而应报告 **paraphrase instability**，即语义不变时预测发生了多少非必要变化。这样避免把 pair 本身过弱误读成模型失去 query control。
 
 这些读数是测量工具，不作为论文创新。结果必须同时展示标准分割性能与 query-control 表现，区分“准确且正确切换”“准确但依赖先验”“敏感但切错”和“整体失败”。
 
@@ -73,7 +78,7 @@ CAGE 只提供定位故障所需的受控材料和测量工具，不承担论文
 
 ## 3. 拟贡献
 
-若前置诊断成立，本研究只卖一个贡献：**在 dense language-guided 3D affordance grounding 中，区分闭集 affordance-label conditioning 与自然语言条件控制，并用同一几何、不同有效功能 mask 的天然对照，定位 query effect 无法控制点级空间决策的任务特有路径。**
+若前置诊断成立，本研究只卖一个贡献：**在 dense language-guided 3D affordance grounding 中，区分闭集 affordance-label conditioning 与自然语言条件控制，并用同一几何、不同有效功能 mask 的天然对照，定位介导 query effect 到点级空间决策的计算路径，再检验它相对通用 cross-modal routing 是否具有任务特异性。**
 
 其三个子点（一个贡献的三个子点，不是三个独立贡献）：
 
@@ -81,7 +86,7 @@ CAGE 只提供定位故障所需的受控材料和测量工具，不承担论文
 2. **因果定位证据**：CAGE 的双向定点干预定位候选路径，并检验其在指定模型中的介导作用。
 3. **机制结论与最小修复**：被定位机制跨至少两个架构复现，且最小结构修改（非通用 loss）能恢复 query control。
 
-如果数据、行为 failure 或任务特有路径任一不成立，论文贡献可能不成立，本题应停止或仅保留为内部负结果；不预设“无论哪种结果都有论文”。
+如果数据或行为 failure 不成立，论文贡献可能不成立，本题应停止或仅保留为内部负结果。若只复现通用 cross-modal routing 机制而没有显示 3D affordance grounding 特有的新结构，novelty 降级为领域验证；不预设“无论哪种结果都有论文”。
 
 ## 4. Baseline 与开源代码
 
@@ -112,7 +117,7 @@ CAGE 只提供定位故障所需的受控材料和测量工具，不承担论文
 
 审计后再根据真实分布判断三个问题：是否存在足够的独立 shape 支撑主要比较；核心 pair 是否被少数类别或 affordance 垄断；按 shape 划分后是否仍能形成 train/validation/test 隔离。若只能得到少量、单类别或高度相关的 pair，LASO 不能支撑该 RQ，本题停止。
 
-数据可答后，用官方预训练 PointRefer 和 GEAL 分别跑 Label、Canonical、Paraphrase 三层输入，并加入 object-only、query-only 与类别先验基线。阶段 A 依次回答：模型是否只识别 affordance label；标准性能较高时是否仍存在双向 switching failure；该 failure 是否不能被 mask overlap、标签面积、类别共现、词频或改写噪声解释。
+数据可答后，用官方预训练 PointRefer 和 GEAL 分别跑 Label、Canonical、Paraphrase 三层输入，并加入 object-only、query-only、类别先验以及经审计的 CAGE-Unsupported 控制。阶段 A 依次回答：模型是否只识别 affordance label；标准性能较高时是否仍存在双向 switching failure；正确 object 面对不支持但语法合法的 affordance 是否仍错误激活常见功能区；该 failure 是否不能被 mask overlap、标签面积、类别共现、词频或改写噪声解释。不同 affordance pair 只在 GT effect 明确非零时统计 counterfactual silence；paraphrase pair 单独统计 paraphrase instability，二者不得合并成“近零变化比例”。
 
 ### 阶段 B：定位衰减区间（不训练）
 
@@ -120,7 +125,7 @@ CAGE 只提供定位故障所需的受控材料和测量工具，不承担论文
 
 ### 阶段 C：因果干预
 
-对 candidate locus 做 restoration、destruction、path-specific 和联合路径干预，判断它是可测 query effect 的介导路径、替代路径还是相关痕迹。这是机制主张的最低门槛。
+对 candidate locus 做 restoration、destruction、path-specific 和联合路径干预，判断它是可测 query effect 的介导路径、替代路径还是相关痕迹。这是机制主张的最低门槛。随后单独裁决 novelty：若所定位路径只是已有 STDC / back-patching 一类通用 cross-modal routing 机制在本任务上的复现，则贡献降级为领域验证；只有额外证明机制与点级空间选择、同几何多 affordance mask 或三维特征传播存在不可由通用机制覆盖的联系，才允许使用“任务特异性”表述。“首次在本任务观察到”不等于“任务特有”。
 
 ### 阶段 D：方法（仅在 C 通过后）
 
@@ -134,14 +139,14 @@ CAGE 只提供定位故障所需的受控材料和测量工具，不承担论文
 
 这是一个比“诊断 + 指标 + loss”更值得验证、但尚未完成立项的数据依赖型方向。它现在只有可证伪的问题和实验顺序，没有已验证的 pair 规模、language-vs-label 区分、switching failure、candidate locus 或因果机制。
 
-最关键的三项成立条件是：
+最关键的四项成立条件是：
 
 1. 数据能在独立 shape 层面形成分布不过度偏斜、语义有效的多功能配对；
 2. Label / Canonical / Paraphrase 分层能够排除“只是闭集 affordance 分类”的解释；
 3. 至少两个结构不同的 baseline 暴露一致的 switching failure，且不能被几何、标签面积、类别共现和改写噪声解释；
-4. 因果干预能定位任务特有的 query-to-point 介导路径，且最小结构修改能恢复 query control。
+4. 因果干预能定位 query-to-point 介导路径，且最小结构修改能恢复 query control；该路径是否具有任务特异性另行裁决，不作为预设前提。
 
-若前两项任一不成立，本题停止或改写为更低层次的 affordance-label conditioning 问题；若行为 failure 成立但没有任务特有的介导路径，只保留负结果，不自动包装成诊断论文。
+若前两项任一不成立，本题停止或改写为更低层次的 affordance-label conditioning 问题；若行为 failure 成立但因果定位失败，只保留负结果。若定位成功但只得到已知的通用 routing 机制，则按领域验证降级，不包装成任务特有机制论文。
 
 最终研究主线：先证明 query control 确实丢失，再定位它在哪丢失、因何丢失，最后只修复那个被因果验证的环节——而不是堆更多通用模块。
 
