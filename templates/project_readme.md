@@ -1,22 +1,27 @@
 # {{PROJECT_NAME}}
 
-状态以 [STATE.yaml](STATE.yaml) 为准。先完成 [RESEARCH_CHARTER.md](RESEARCH_CHARTER.md)，通过 G0 后才进入文献检索。
+## 当前问题
 
-## 当前约束
+用一两句话写清正在研究什么，以及为什么值得查。
 
-- 目标会议：{{VENUE}}
-- 截止日期：{{DEADLINE}}
-- 当前阶段：INTAKE
-- 当前 Gate：G0 PENDING
+## 当前判断
 
-## 目录
+- 已知：
+- 未知：
+- 放弃条件：
 
-- `intake/`：约束、会议政策和会议纪要。
-- `landscape/`：文献矩阵、证据账本和方向地图。
-- `idea/`：候选卡、查重与红队意见。
-- `experiments/`：官方仓库、环境、复现日志、预注册、配置、结果与图表。
-- `paper/`：主张矩阵、提纲和正文。
+## 约束
 
-## 首次使用
+- 候选会议：{{VENUE}}
+- 时间节点：{{DEADLINE}}
+- 数据、算力和协作边界：
 
-让 opencode 读取根目录 `AGENTS.md`、本目录 `STATE.yaml` 与 `RESEARCH_CHARTER.md`。没有补齐的信息应询问，不得假设。
+## 当前材料
+
+- 核心方案：
+- 关键证据：[EVIDENCE.md](EVIDENCE.md)
+- 重大决策：[DECISIONS.md](DECISIONS.md)
+
+## 下一步
+
+只写一个能改变判断的最小动作。

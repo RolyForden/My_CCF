@@ -1,37 +1,32 @@
 # CCFC 选题
 
-> 目标：CCF-C 会议投稿，硬节点 2027-03 前投出。
-> 路线：公开数据 + 可复现代码 + 单卡 RTX 4090 + 不依赖自采硬件。
+## 当前问题
 
-## 当前状态
+在 language-guided 3D affordance grounding 中，当几何保持不变、有效 query 改变时，query-dependent information 是否能传到相关点并驱动正确的 mask switching？如果不能，控制能力在哪个计算环节丢失，该位置是否对输出具有因果作用？
 
-- 阶段：`IDEA`（RQ 待按导师意见修订）
-- 主攻方向：**FocalInspect-NBV** —— 任务驱动无人机巡检：FocalAfford 感知（语境引导局部教师 + 优势加权局部修正蒸馏 + 2D→3D 迁移）+ 冻结下游观察验证
-- 闸门：RQ 的 gap 锋利度须重审（导师意见：重审根问题是分辨率不足还是全局语义—局部空间精度的结构性矛盾）
-- 下一步：按导师意见修订 RQ 与 gap，详见 `idea/FocalInspect-NBV_Research_Report.pdf`
+当前把 CAGE 视为测量装置，不是正式方法。正式方法在 failure 和因果位置得到证据前保持空白。
 
-## 阅读顺序（第一次看本项目的博士 / 队友）
+## 当前判断
 
-1. `STATE.yaml` — 机器可读的当前状态
-2. `RESEARCH_CHARTER.md` — 研究章程（目标、资源、约束、边界）
-3. `idea/FocalInspect-NBV_Research_Report.pdf` — 当前主攻方向的 proposal
-4. `DECISIONS.md` — 决策日志（含方向演变摘要，D-022 记录方向切换）
-5. `GATE.md` — 选题闸门规则
+- **已知**：现有工作已经覆盖多尺度融合、2D-3D consistency、中间层 connector、几何先验和编码器语义增强；“局部放大 + 全局语境 + 蒸馏”不足以构成强问题。
+- **邻近风险**：counterfactual affordance diagnosis、VLM causal tracing、activation patching 和 modality routing 已有直接先例。可能剩余的空间是 dense 3D point-level spatial control 的任务特有机制，而不是 patching 工具本身。
+- **未知**：LASO 是否有足量且语义有效的同 shape 多 affordance pair；预训练模型是否真实存在 query-insensitive switching failure；内部 query control 是否有稳定、可干预的衰减位置。
+- **尚无结果**：没有运行数据审计、baseline 推理、表示定位或因果干预。
+- **放弃条件**：数据不能形成可靠 pair；强 baseline 能正确切换；或表示变化与行为之间只能得到相关性、无法形成任务特有的机制结论。
 
-## 目录
+## 约束
 
-- `intake/` — 背景约束、会议政策、会议纪要
-- `landscape/` — 文献矩阵、证据账本、方向地图
-- `idea/` — 候选方向与 idea 报告
-- `experiments/` — 基线复现与实验注册
-- `paper/` — 主张矩阵与写作
+- 目标：2027-03 前形成一篇本人能够解释和答辩的投稿稿件，候选会议仍待官方核验。
+- 资源：公开数据和代码优先，单卡 RTX 4090，先做无需训练的检查。
+- 不做：为指标拼模块、在测试集调参、事后编造 gap、把诊断协议写成实验发现。
 
-## 归档说明
+## 当前材料
 
-已否定方向与旧实验产物（PACE-PC、跨模态地点检索、点云退化恢复、FocalAfford / FocalLiDAR / FocalAerial、FocalNadir-VO）存放在**独立工作空间**：
+- 当前方案：[Markdown](idea/CAGE_final-idea-report.md) / [PDF](idea/CAGE_final-idea-report.pdf)
+- 关键证据：[EVIDENCE.md](EVIDENCE.md)
+- 重大转向：[DECISIONS.md](DECISIONS.md)
+- 旧 proposal、完整文献矩阵和旧流程文件均在 `archive/` 或根目录 `legacy_workflow/`，默认不读。
 
-```
-Z:\科研总控台opencode-archive\
-```
+## 下一步
 
-该归档**不在本仓库内**，避免污染高频工作空间。需要回溯旧方向细节时到归档工作空间查阅。
+先用当前方案与导师讨论。确认研究问题值得继续后，只做 LASO pair 数据可答性审计；在这一步通过前不下载额外模型、不搭训练环境、不设计正式方法。

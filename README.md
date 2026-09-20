@@ -1,53 +1,48 @@
-# 科研总控台（opencode 科研工作空间）
+# 科研工作区
 
-把 2026-09 的科研方法论课程变成可执行、可检查的研究工作空间。它不承诺“自动发论文”，而是把选题、检索、验证、复现、实验、写作和审稿拆成可检查的阶段，让 opencode 承担高重复工作，让人保留研究判断和责任。
+这是一个轻量的科研协作目录。目标是减少重复文书，把注意力放在三个问题上：研究问题是否真实、最近邻是否已经覆盖、下一项实验能否改变判断。
 
-## 当前在做什么
+## 当前项目
 
-- **当前项目**：[20260902-CCFC选题](projects/20260902-CCFC选题/README.md)
-- **主攻方向**：FocalInspect-NBV —— 任务驱动无人机巡检（FocalAfford 感知 + 冻结下游观察验证）
-- **当前闸门**：RQ 待按导师意见修订（gap 锋利度重审）
-- **目标**：CCF-C 会议，2027-03 前投出
+- [20260902-CCFC选题](projects/20260902-CCFC选题/README.md)
+- 当前方向：language-guided 3D affordance grounding 中 query control 的传播与因果定位
+- 当前状态：尚未证明 failure 存在，暂不设计正式方法
+- 当前下一步：导师讨论后，先做数据可答性审计，再决定是否运行行为诊断
 
-> **归档说明**：已否定方向与旧实验产物（PACE-PC、跨模态地点检索、点云退化恢复、FocalAfford / FocalLiDAR / FocalAerial、FocalNadir-VO）已移到独立工作空间 `Z:\科研总控台opencode-archive\`，**不在本仓库**。
+## 日常用法
 
-## 先看什么
+进入一个项目时只读：
 
-1. 当前项目：[20260902-CCFC选题](projects/20260902-CCFC选题/README.md) —— 内含阅读顺序与当前状态
-2. 方法论：[可复用科研 SOP](docs/03_可复用科研SOP.md)
-3. 博士规则：[博士科研决策规则与经验汇编](docs/08_博士科研决策规则与经验汇编.md)
-4. 选题锋利度：[导师选题思路与 gap 锋利度判断](docs/09_导师选题思路与gap锋利度判断.md)
-5. 写作术：[全网科研经验汇编](docs/10_全网科研经验汇编.md)
-6. 内阁调度：[科研内阁与任务调度](docs/07_科研内阁与任务调度.md)
+1. 根目录 [AGENTS.md](AGENTS.md)
+2. 项目 `README.md`
+3. 本次任务直接相关的论文、代码或实验文件
 
-其余课程资产（材料校订、课程校订稿、Codex 方法剖析、多角色提示词库、PACE-PC 报告审计）在 [`docs/`](docs/)。
+一次迭代默认只回答：
 
-## 目录约定
+1. 新发现了什么？
+2. 它改变了什么判断？
+3. 下一步最小动作是什么？
 
-- `projects/`：实际研究项目，每个题目单独存放。项目内结构：`intake/ landscape/ idea/ experiments/ paper/` + `README / STATE.yaml / RESEARCH_CHARTER.md / GATE.md / DECISIONS.md`。
-- `docs/`：课程资产、方法论和审计结论。
-- `templates/`：每个研究阶段的固定模板。
-- `scripts/`：新建选题（`new_topic.ps1`）和完整性检查（`validate_project.ps1`）脚本。
-- `workflow/`：跨选题共用的状态与证据规则。
-- `.opencode/`：总控台与 5 个 subagent（文献情报 / 数据与基线 / 选题红队 / 工程实验 / 论文与审稿）配置。
-- `source_private/`：原始录音转写、截图和私密报告，只在本机保存，不进入版本控制。
+不再维护阶段机、Gate 编号、证据数量、固定角色回传或每轮 artifact 清单。完整原则见 [轻量工作流](workflow/README.md)。
 
-## 开始一个新选题
+## 目录
+
+- `projects/`：实际研究项目。每个项目的 `README.md` 是唯一状态入口。
+- `docs/`：仍有参考价值的方法、课程和导师经验材料，按需读取。
+- `templates/`：仅保留项目、证据、决策和实验四份轻量模板。
+- `scripts/`：新建项目和轻量检查。
+- `legacy_workflow/`：旧阶段制、Gate、科研内阁和模板，仅供回看，不参与当前工作。
+- `source_private/`：私密原始材料，不进入外部服务。
+
+## 新建项目
 
 ```powershell
-PowerShell -ExecutionPolicy Bypass -File .\scripts\new_topic.ps1 -Name "选题名称" -Venue "目标会议" -Deadline "YYYY-MM-DD"
+PowerShell -ExecutionPolicy Bypass -File .\scripts\new_topic.ps1 `
+  -Name "选题名称" -Venue "候选会议" -Deadline "YYYY-MM-DD"
 ```
 
-脚本会在 `projects/` 下生成独立研究目录。随后让 opencode 先读取该目录的 `RESEARCH_CHARTER.md` 和根目录的 `AGENTS.md`，从当前阶段继续，而不是直接写模型或论文。
+脚本只生成 `README.md`、`EVIDENCE.md` 和 `DECISIONS.md`。实验和论文文件等真正需要时再创建。
 
-## 核心方法
+## 保留的严谨性
 
-该博士最有价值的能力不是“换模块”，而是把研究限制翻译成一串连续决策：
-
-`约束定义 → 近年态势 → 候选方向 → 反驳与查重 → 邻域迁移 → 代码/数据/算力审计 → 基线复现 → 小规模试验 → 完整实验 → 论证与审稿`
-
-需要删除或改写的做法：“20% 数据失败则全量必败”“全程不需要编码”“换模块就是创新”“先看到指标上涨再倒推动机”。AI 给出的论文名、分数和录取概率都不是证据。
-
-## 使用边界
-
-这套流程可以压缩检索、工程和文书时间，但不能替代：研究问题的真实性、实验公平性、结果复核、引用核验、作者贡献和投稿合规。opencode 是研究执行器与审计助手，不是论文责任主体。
+精简的是行政流程，不是研究诚信。引用核验、公平 baseline、数据划分、实验可复现、负结果保留和投稿政策核对仍然必须执行，但只在相关任务发生时记录。
