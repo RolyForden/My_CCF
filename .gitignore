@@ -1,0 +1,13 @@
+source_private/
+**/data/raw/
+**/secrets/
+**/.env
+**/*.key
+**/checkpoints/
+**/runs/
+**/wandb/
+**/__pycache__/
+**/.pytest_cache/
+*.zip
+*.tar
+*.tar.gz

@@ -1,0 +1,33 @@
+project: "CCFC选题"
+created: "2026-09-02"
+updated: "2026-09-11"
+stage: "INTAKE"
+gate_status: "PENDING"
+target_venue: "IJCNN 2027（主）/ IROS 2027（备）"
+deadline: "IJCNN 2027-01-31；IROS 2027-03-01"
+research_question: "待重新选题（跨模态地点检索+候选重排方向已于 D-015 终止）"
+evidence_snapshot:
+  A: 4
+  B: 25
+  C: 0
+  D: 3
+last_decision: "D-017"
+artifacts:
+  - "GATE.md"
+  - "00_intake/VENUE_CANDIDATES.md"
+  - "01_landscape/LANDSCAPE.md"
+  - "01_landscape/LITERATURE_MATRIX.csv"
+  - "01_landscape/EVIDENCE_LEDGER.md"
+  - "02_idea/课题说明_v3_跨模态室内定位.md"
+  - "04_experiments/SPLIT.md"
+blockers:
+  - item: "候选方向须逐条通过 GATE.md（真实gap/公开数据/开源基线/最小证伪）后才能进入 IDEA"
+    owner: "唐卓 + 博士 + 选题红队"
+    status: "OPEN"
+  - item: "「Depth-Guided Reranking 2025」未定位（D级），待博士补 DOI/标题/作者二次核验"
+    owner: "唐卓 + 博士"
+    status: "OPEN"
+  - item: "书面化共同一作的具体分工与贡献"
+    owner: "唐卓 + 同学"
+    status: "OPEN"
+next_action: "不自动跳回旧主线；回 GATE 重新提名方向（等博士）；若博士异议则先升 A 读 ResLPR/LPR-Mate 全文"
