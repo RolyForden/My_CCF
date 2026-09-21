@@ -8,4 +8,4 @@ description: 校验某个科研选题项目目录的完整性
 PowerShell -ExecutionPolicy Bypass -File .\scripts\validate_project.ps1 -ProjectPath "<项目路径>"
 ```
 
-报告缺失文件、STATE.yaml 阶段合法性、CSV 表头是否匹配 schema，以及是否通过校验。
+报告 `README.md`、`EVIDENCE.md`、`DECISIONS.md` 是否存在，以及 README 是否包含“当前问题”“当前判断”“下一步”。只报告脚本实际检查的项目，不声称校验了实验结果、数据或旧状态文件。

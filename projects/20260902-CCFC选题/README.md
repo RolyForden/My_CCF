@@ -24,12 +24,10 @@
 ## 当前材料
 
 - 当前方案：[Markdown](idea/CAGE_final-idea-report.md) / [PDF](idea/CAGE_final-idea-report.pdf)
-- 分阶段执行手册：[CAGE_EXECUTION_PLAYBOOK.md](experiments/CAGE_EXECUTION_PLAYBOOK.md)
-- 今日五卡任务书：[CAGE_5GPU_TODAY_EXECUTION.md](experiments/CAGE_5GPU_TODAY_EXECUTION.md)
-- 辅助队友任务单：[GEAL_BASELINE_SUPPORT_TASK.md](experiments/GEAL_BASELINE_SUPPORT_TASK.md)
+- 当前实验协议与交付要求：[experiments/README.md](experiments/README.md)
 - 关键证据：[EVIDENCE.md](EVIDENCE.md)
 - 重大转向：[DECISIONS.md](DECISIONS.md)
-- 旧 proposal、完整文献矩阵和旧流程文件均在 `archive/` 或根目录 `legacy_workflow/`，默认不读。
+- 完整文献矩阵和旧证据账本在 `archive/research_history/`，默认不读；旧 proposal 与旧流程由 Git 历史保存。
 
 ## 下一步
 

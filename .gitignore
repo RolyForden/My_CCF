@@ -9,6 +9,9 @@ source_private/
 **/__pycache__/
 **/.pytest_cache/
 tmp/
+/GEAL_20pct_delivery*/
+/GEAL_20pct_delivery*.zip
+.opencode/node_modules/
 *.zip
 *.tar
 *.tar.gz

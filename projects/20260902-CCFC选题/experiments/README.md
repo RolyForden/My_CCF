@@ -1,7 +1,6 @@
-# CAGE 今日五卡执行任务书
+# CAGE 当前实验协议
 
-版本：v1.0，2026-09-21  
-执行窗口：今天连续执行，可用 5 张 GPU  
+当前执行窗口：2026-09-21，可用 5 张 GPU
 定位：从 GEAL 20% 工程筛选继续推进到行为判定；只有行为现象成立，才进入表示定位和因果干预。
 
 ## 1. 本轮采用的科研原则
@@ -20,19 +19,30 @@
 
 它足以放行下一轮工作，不要求先补一套“工业级复现”。但它还不能替代后续全量参考值，也不能证明 query switching failure 或任何机制成立。
 
-## 2. 今日唯一目标
+## 2. 当前唯一目标
 
-今天必须回答：
+本轮必须回答：
 
 > 在单 query 本来预测合格的 LASO 样本上，改变合法 affordance query 后，GEAL 是否存在稳定且不能由标签模板、mask 过近、类别先验解释的 point-level switching failure？
 
-今日产出优先级：
+执行优先级：
 
 1. **必须完成**：数据审计、冻结 pair/query manifest、逐点预测导出、20% 行为筛选。
 2. **20% 现象成立后必须完成**：全量 discovery 与一次冻结 confirmation。
 3. **行为现象确认后才做**：表示定位。
 4. **定位形成单一候选后才做**：因果干预。
-5. **今天默认不做**：正式新方法、大规模训练、第二数据集、论文写作。
+5. **本轮默认不做**：正式新方法、大规模训练、第二数据集、论文写作。
+
+### 已冻结的外部资产
+
+| 资产 | 来源或版本 | 核验要求 |
+|---|---|---|
+| LASO 数据 | 官方仓库给出的 Google Drive，文件 ID `1P4CwQeSALtUOgzhg1ILCiKovE-tcXlSu` | 保存下载 URL、文件大小和现场计算的 SHA256；结构不同于官方说明时停止猜测并记录 |
+| GEAL 代码 | `https://github.com/DylanOrange/geal.git` | 保存实际 commit，不使用第三方 fork |
+| GEAL LASO seen 权重 | `https://huggingface.co/datasets/dylanorange/geal/resolve/main/laso_seen.pt` | 554 MB；SHA256 `0163519dcf732cf9c9a4db176f8df79b7c207e0ee14a1324988f714eb4b4191e` |
+| 官方环境基线 | Python 3.10、CUDA 11.8、PyTorch 2.1.0 | `diff-gaussian-rasterization` 必须真实编译并通过 import；安装脚本最后打印完成不能替代此检查 |
+
+LASO 原始数据、代码仓库和 checkpoint 留在外部算力或 `source_private/`，不进入 Git。未经当前行为结果放行，不下载 unseen、PIAD、CMAT 或其他训练权重。
 
 ## 3. 人员与算力分工
 
@@ -244,6 +254,24 @@ today/manifests/frozen_rules.yaml
 - Label/Canonical/Paraphrase 的分层结果；
 - 按 class、affordance pair、mask IoU、区域大小分层。
 
+方向性指标按以下定义计算；若 GT mask 不在 `[0,1]`，先追溯官方预处理，不为套公式静默归一化：
+
+```text
+delta_y = y_b - y_a
+delta_p = p_b - p_a
+w_plus  = max(delta_y, 0)
+w_minus = max(-delta_y, 0)
+w_zero  = 1 - abs(delta_y)
+
+E_plus  = sum(w_plus  * delta_p)  / (sum(w_plus)  + eps)
+E_minus = sum(w_minus * -delta_p) / (sum(w_minus) + eps)
+L_zero  = sum(w_zero  * abs(delta_p)) / (sum(w_zero) + eps)
+
+m_a = S(p_a, y_a) - S(p_a, y_b)
+m_b = S(p_b, y_b) - S(p_b, y_a)
+BCA = 1[m_a > 0 and m_b > 0]
+```
+
 分析顺序固定：先筛出单 query 本来预测合格的样本，再判断 switching。不得把“模型本来就预测错”包装成 query-control failure。
 
 20% 裁决：
@@ -326,9 +354,15 @@ today/behavior_confirmation/summary.md
 | `CORRELATIONAL` | 表示可读但干预不恢复行为 |
 | `REJECT` | 与随机或错位控制无区别 |
 
-今天只有得到 `CAUSAL_CANDIDATE` 才允许另写方法任务书；本文件不预设 paired loss、router、binding module 或 decoder 改造。
+只有得到 `CAUSAL_CANDIDATE` 才允许另写方法任务书；本文件不预设 paired loss、router、binding module 或 decoder 改造。
 
-## 13. 今日调度
+## 13. 因果候选后的裁决
+
+第二模型不是默认任务。只有首个模型得到 `CAUSAL_CANDIDATE`，才选择输入输出兼容、代码与权重可核验、结构与 GEAL 有差异且能访问内部张量的模型做冻结协议确认；不得在第二模型上重新搜索另一套故事。
+
+方法也不是必经产物。若简单 paired supervision、balanced sampling 或最小条件化改动已经恢复内部空间选择性与外部 switching，就接受简单答案；若结果只是通用 cross-modal routing 的领域复现，主动降低 novelty 表述。正式方法必须由已确认的具体计算缺陷推出。
+
+## 14. 当日调度
 
 | 时间块 | 主路径 | 五卡使用 |
 |---|---|---|
@@ -345,7 +379,7 @@ today/behavior_confirmation/summary.md
 
 若某一阶段提前 `KILL`，空出的 GPU 不自动转去训练新方法。先由主研究者决定是否转向语言模板问题、第二个公开 baseline，或结束当前课题。
 
-## 14. 一次性回传格式
+## 15. 一次性回传格式
 
 ```text
 Completed tasks:
