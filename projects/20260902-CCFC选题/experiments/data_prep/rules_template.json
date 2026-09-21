@@ -1,0 +1,8 @@
+{
+  "discovery_split": "val",
+  "confirmation_split": "test",
+  "min_mean_abs_gt_diff": null,
+  "max_mask_iou": null,
+  "excluded_pair_types": [],
+  "notes": "Fill this file only after reading the data distributions and before running query switching. Null means no numeric exclusion."
+}

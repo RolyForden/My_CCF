@@ -103,6 +103,8 @@ GEAL 官方代码和 LASO seen checkpoint 已经在远端跑通：
 
 当前应完成“数据分析与样本构建”，然后运行第一批行为实验。暂时不做 hook、activation patching、训练或新方法。
 
+本轮可直接执行的命令和交付结构见 [LASO_DATA_QUERY_EXECUTION.md](LASO_DATA_QUERY_EXECUTION.md)。
+
 ### 4.1 LASO 数据分析
 
 只读处理 train、val、test 三个 split，输出：
