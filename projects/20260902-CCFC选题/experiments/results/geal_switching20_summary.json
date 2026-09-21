@@ -1,0 +1,34 @@
+{
+  "status": "completed_negative_screen",
+  "split": "val",
+  "geal_commit": "3048bb8c859b04b3d7569e2bc186f9880c7109ab",
+  "checkpoint_sha256": "0163519dcf732cf9c9a4db176f8df79b7c207e0ee14a1324988f714eb4b4191e",
+  "artifact_zip_sha256": "A06AA7908DB6F420E4F7FE0A5A61DAD1FA40911B3CFCD5A62D253C536239EA41",
+  "shape_count": 74,
+  "pair_count": 133,
+  "query_count": 386,
+  "single_query_screen": "both queries have SIM >= 0.5",
+  "conditions": {
+    "Label": {
+      "mean_query_sim": 0.6302859848196295,
+      "mean_query_mae": 0.08547738605598712,
+      "median_prediction_change_l1": 0.1500823050737381,
+      "median_response_ratio": 0.7513982321352483,
+      "near_zero_response_ratio_lt_0_1": 0,
+      "qualified_pairs": 94,
+      "qualified_bca_pass": 90,
+      "qualified_bca_rate": 0.9574468085106383
+    },
+    "Canonical": {
+      "mean_query_sim": 0.6839116729815234,
+      "mean_query_mae": 0.08632342070534131,
+      "median_prediction_change_l1": 0.24215109646320343,
+      "median_response_ratio": 1.1927715890897288,
+      "near_zero_response_ratio_lt_0_1": 0,
+      "qualified_pairs": 90,
+      "qualified_bca_pass": 87,
+      "qualified_bca_rate": 0.9666666666666667
+    }
+  },
+  "decision": "stop_query_insensitive_mechanism_mainline_without_full_val_or_test_confirmation"
+}

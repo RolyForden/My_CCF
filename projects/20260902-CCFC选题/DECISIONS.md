@@ -20,3 +20,10 @@
 - 依据：反事实评测、sensitivity metric、paired loss 和 activation patching 都已有直接先例；潜在研究价值在任务特有的 point-level spatial control failure，而不是工具本身。
 - 继续条件：数据能形成可靠 pair，至少两个可复现模型出现无法由歧义、重叠或改写噪声解释的 switching failure，并能通过双向干预建立行为后果。
 - 停止条件：数据不可答、强 baseline 无 failure，或内部变化只能得到相关性而不能形成任务特有的机制结论。
+
+## 2026-09-21 - 停止 CAGE 机制主线
+
+- 决定：不运行完整 val、test confirmation、表示定位、因果干预或方法修复，关闭当前 query-insensitive mechanism 方向。
+- 依据：在任何 switching 输出产生前冻结的 74 个 val shape、133 个有效 pair 上，GEAL 的 Label/Canonical response ratio 中位数为 `0.75/1.19`，近零变化均为 `0/133`；两端单 query `SIM >= 0.5` 时 BCA 为 `95.7%/96.7%`。剩余错误只有 4/3 对，集中于少量 shape，且预测本身发生了明显变化。
+- 判断：核心行为现象没有成立。围绕少量错误继续做 D1/D2 会变成事后寻找机制，不符合本项目的止损原则。
+- 保留：LASO 数据审计、pair/query manifest、GEAL baseline 和本轮负结果可供后续选题复用。
