@@ -26,6 +26,7 @@
 
 - 当前方案：[Markdown](idea/CAGE_final-idea-report.md) / [PDF](idea/CAGE_final-idea-report.pdf)
 - 当前实验协议与交付要求：[experiments/README.md](experiments/README.md)
+- 队友实验总览：[TEAMMATE_EXPERIMENT_GUIDE.md](experiments/TEAMMATE_EXPERIMENT_GUIDE.md)
 - 关键证据：[EVIDENCE.md](EVIDENCE.md)
 - 重大转向：[DECISIONS.md](DECISIONS.md)
 - 完整文献矩阵和旧证据账本在 `archive/research_history/`，默认不读；旧 proposal 与旧流程由 Git 历史保存。
