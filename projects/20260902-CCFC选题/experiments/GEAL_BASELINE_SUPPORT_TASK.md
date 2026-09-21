@@ -13,7 +13,7 @@
 
 ## 与主线并发方式
 
-| 主研究者 | 辅助队友 |
+| 研究者A | 辅助队友 |
 |---|---|
 | 下载并审计 LASO 数据 | 克隆 GEAL、搭官方环境、下载官方 seen 权重 |
 | 构建并冻结 pair/query manifest | 复现官方 evaluation，不加入 CAGE 逻辑 |
@@ -266,4 +266,4 @@ Artifacts:
 Blocking issue, if any:
 ```
 
-回传只描述事实，不判断 CAGE 是否成立。所有科学解释由主研究者完成。
+回传只描述事实，不判断 CAGE 是否成立
