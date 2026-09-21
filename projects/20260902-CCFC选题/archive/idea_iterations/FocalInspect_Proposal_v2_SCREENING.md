@@ -1,7 +1,7 @@
 # Proposal v2 边界筛查报告
 
 > 筛查对象：`FocalInspect_Proposal_v2.md` 与 `FocalInspect_Root_Problem_Diagnostic.md`  
-> 判定边界：`docs/08_博士科研决策规则与经验汇编.md`、`docs/09_导师选题思路与gap锋利度判断.md`、`docs/10_全网科研经验汇编.md`  
+> 判定边界：`docs/08_科研决策、Gap判断与论文实操汇编.md`
 > 日期：2026-09-20  
 > 性质：立项前红队审计，不是实验结果；所有分数均为审稿视角的 D 级判断。
 
@@ -127,7 +127,4 @@ LASO 同时提供问题改写和标注，PIAD 又不能在复用 LASO 文本后�
 
 ## 8. 边界来源定位
 
-- `docs/09_导师选题思路与gap锋利度判断.md`：结构性矛盾、去术语测试、消融反向信号、问题导向、应用层边界。
-- `docs/08_博士科研决策规则与经验汇编.md`：方向红线、先靶后箭、开源与单卡可行性、Top-10 最近邻、Gap Survival、证伪优先。
-- `docs/10_全网科研经验汇编.md`：Originality/Quality/Clarity/Significance、自评、limited evaluation、单一贡献。
-
+- `docs/08_科研决策、Gap判断与论文实操汇编.md`：方向红线、先靶后箭、结构性矛盾、去术语测试、开源与单卡可行性、Top-10 最近邻、Gap Survival，以及 Originality/Quality/Clarity/Significance 等审稿与写作边界。
