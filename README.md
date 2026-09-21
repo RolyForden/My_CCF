@@ -6,8 +6,8 @@
 
 - [20260902-CCFC选题](projects/20260902-CCFC选题/README.md)
 - 当前方向：language-guided 3D affordance grounding 中 query control 的传播与因果定位
-- 当前状态：GEAL + LASO seen 的 20% 工程筛选已跑通；query switching failure 和内部机制均未验证
-- 当前下一步：审计队友交付的原始产物，随后冻结 pair/query 输入并运行行为诊断
+- 当前状态：GEAL + LASO seen 的完整 test evaluation 已跑通并导出逐点预测；query switching failure 和内部机制均未验证
+- 当前下一步：完成 LASO 数据与语言审计，按 shape 冻结 discovery/confirmation 和 pair/query manifest，再运行 20% 行为诊断
 
 ## 日常用法
 
